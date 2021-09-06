@@ -15,7 +15,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "sprotty": "0.9.0"
+    "sprotty": "FelixJoehnk/sprotty#OtherVersion"
   },
   "files": [
     "lib",

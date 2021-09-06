@@ -188,7 +188,7 @@
         "inversify": "5.0.1",
         "nanoid": "^3.1.23",
         "reflect-metadata": "^0.1.13",
-        "sprotty": "0.9.0",
+        "sprotty": "FelixJoehnk/sprotty#OtherVersion",
         "sprotty-vscode": "^0.1.3",
         "sprotty-vscode-webview": "^0.1.2",
         "vscode-languageclient": "^5.2.1"

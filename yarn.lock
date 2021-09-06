@@ -7546,6 +7546,17 @@ sprotty@0.9.0:
     snabbdom-jsx "0.4.2"
     snabbdom-virtualize "0.7.0"
 
+sprotty@FelixJoehnk/sprotty#OtherVersion:
+  version "0.9.0"
+  resolved "https://codeload.github.com/FelixJoehnk/sprotty/tar.gz/2ad3edc3a9ecaeb02eaf1d78d0e5de1cc5a8cce5"
+  dependencies:
+    autocompleter "5.1.0"
+    file-saver "2.0.2"
+    inversify "5.0.1"
+    snabbdom "0.7.3"
+    snabbdom-jsx "0.4.2"
+    snabbdom-virtualize "0.7.0"
+
 sshpk@^1.7.0:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.16.1.tgz#fb661c0bef29b39db40769ee39fa70093d6f6877"
