@@ -51,7 +51,7 @@ import {
 interface AllOptions {
     actions: DisplayedActionData[];
     layoutOptions: LayoutOptionUIData[];
-    synthesisOptions: SynthesisOption<any>[];
+    synthesisOptions: SynthesisOption<unknown>[];
 }
 
 /** Renderer that is capable of rendering different option models to jsx. */
@@ -118,14 +118,15 @@ export class OptionsRenderer {
      * synthesisOptions that belong to no category if the category is null.
      */
     private renderSynthesisOptions(
-        synthesisOptions: SynthesisOption<any>[],
-        category: SynthesisOption<any> | null
+        synthesisOptions: SynthesisOption<unknown>[],
+        category: SynthesisOption<unknown> | null
     ): (VNode | "")[] | "" {
         return synthesisOptions
             .filter((option) => option.category?.id === category?.id)
-            .map((option) => {
-                switch (option.type) {
-                    case TransformationOptionType.CHECK:
+            .map((_option) => {
+                switch (_option.type) {
+                    case TransformationOptionType.CHECK: {
+                        const option = _option as SynthesisOption<boolean>;
                         return (
                             <CheckOption
                                 key={option.id}
@@ -135,7 +136,9 @@ export class OptionsRenderer {
                                 onChange={this.handleSynthesisOptionChange.bind(this, option)}
                             />
                         );
-                    case TransformationOptionType.CHOICE:
+                    }
+                    case TransformationOptionType.CHOICE: {
+                        const option = _option as SynthesisOption<string>;
                         return (
                             <ChoiceOption
                                 key={option.id}
@@ -146,20 +149,24 @@ export class OptionsRenderer {
                                 onChange={this.handleSynthesisOptionChange.bind(this, option)}
                             />
                         );
-                    case TransformationOptionType.RANGE:
+                    }
+                    case TransformationOptionType.RANGE: {
+                        const option = _option as RangeOptionData;
                         return (
                             <RangeOption
                                 key={option.id}
                                 id={option.id}
                                 name={option.name}
                                 value={option.currentValue}
-                                minValue={(option as RangeOptionData).range.first}
-                                maxValue={(option as RangeOptionData).range.second}
-                                stepSize={(option as RangeOptionData).stepSize}
+                                minValue={option.range.first}
+                                maxValue={option.range.second}
+                                stepSize={option.stepSize}
                                 onChange={this.handleSynthesisOptionChange.bind(this, option)}
                             />
                         );
-                    case TransformationOptionType.TEXT:
+                    }
+                    case TransformationOptionType.TEXT: {
+                        const option = _option as SynthesisOption<string>;
                         return (
                             <TextOption
                                 key={option.id}
@@ -169,9 +176,11 @@ export class OptionsRenderer {
                                 onChange={this.handleSynthesisOptionChange.bind(this, option)}
                             />
                         );
+                    }
                     case TransformationOptionType.SEPARATOR:
-                        return <SeparatorOption key={option.id} name={option.name} />;
-                    case TransformationOptionType.CATEGORY:
+                        return <SeparatorOption key={_option.id} name={_option.name} />;
+                    case TransformationOptionType.CATEGORY: {
+                        const option = _option as SynthesisOption<boolean>;
                         return (
                             <CategoryOption
                                 key={option.id}
@@ -186,8 +195,9 @@ export class OptionsRenderer {
                                     : this.renderSynthesisOptions(synthesisOptions, option)}
                             </CategoryOption>
                         );
+                    }
                     default:
-                        console.error("Unsupported option type for option:", option.name);
+                        console.error("Unsupported option type for option:", _option.name);
                         return "";
                 }
             });
@@ -252,12 +262,14 @@ export class OptionsRenderer {
     }
 
     /** Renders render options that are stored in the client. An example would be "show constraints" */
-    renderRenderOptions(renderOptions: RenderOption<any>[]): (VNode | "")[] | "" {
+    renderRenderOptions(renderOptions: RenderOption<unknown>[]): (VNode | "")[] | "" {
+
         if (renderOptions.length === 0) return "";
 
-        return renderOptions.map((option) => {
-            switch (option.type) {
-                case TransformationOptionType.CHECK:
+        return renderOptions.map((_option) => {
+            switch (_option.type) {
+                case TransformationOptionType.CHECK: {
+                    const option = _option as RenderOption<boolean>;
                     return (
                         <CheckOption
                             key={option.id}
@@ -267,21 +279,24 @@ export class OptionsRenderer {
                             onChange={this.handleRenderOptionChange.bind(this, option)}
                         />
                     );
-                case TransformationOptionType.RANGE:
+                }
+                case TransformationOptionType.RANGE: {
+                    const option = _option as RangeOptionData;
                     return (
                         <RangeOption
                             key={option.id}
                             id={option.id}
                             name={option.name}
                             value={option.currentValue}
-                            minValue={(option as RangeOptionData).range.first}
-                            maxValue={(option as RangeOptionData).range.second}
-                            stepSize={(option as RangeOptionData).stepSize}
+                            minValue={option.range.first}
+                            maxValue={option.range.second}
+                            stepSize={option.stepSize}
                             onChange={this.handleRenderOptionChange.bind(this, option)}
                         />
                     );
+                }
                 default:
-                    console.error("Unsupported option type for option:", option.name);
+                    console.error("Unsupported option type for option:", _option.name);
                     return "";
             }
         });

@@ -224,7 +224,7 @@ export interface RenderOptionDefault<V> extends RenderOptionType<V> {
 /** {@link Registry} that stores and updates different render options. */
 @injectable()
 export class RenderOptionsRegistry extends Registry {
-    private _renderOptions: Map<string, RenderOption<any>> = new Map();
+    private _renderOptions: Map<string, RenderOption<unknown>> = new Map();
 
     @inject(PersistenceStorage) private storage: PersistenceStorage;
 
@@ -293,7 +293,7 @@ export class RenderOptionsRegistry extends Registry {
         return new UpdateModelAction([], false, action)
     }
 
-    get allRenderOptions(): RenderOption<any>[] {
+    get allRenderOptions(): RenderOption<unknown>[] {
         return Array.from(this._renderOptions.values());
     }
 

@@ -43,7 +43,7 @@ export enum TransformationOptionType {
  */
 export interface SynthesisOption<V> extends RenderOption<V> {
     values: V[]
-    category?: SynthesisOption<any>
+    category?: SynthesisOption<unknown>
 }
 
 /**
@@ -79,7 +79,7 @@ export interface GetOptionsResult {
     /**
      * The list of all displayed synthesis options for the diagram for the given URI.
      */
-    valuedSynthesisOptions: ValuedSynthesisOption<any>[]
+    valuedSynthesisOptions: ValuedSynthesisOption<unknown>[]
 
     /**
      * The list of all displayed layout options for the diagram for the given URI.
