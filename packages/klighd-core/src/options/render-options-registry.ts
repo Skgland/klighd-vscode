@@ -22,7 +22,7 @@ import { PersistenceStorage } from "../services";
 import { ResetRenderOptionsAction, SetRenderOptionAction } from "./actions";
 import { RangeOption, RenderOption, TransformationOptionType } from "./option-models";
 
-export class ShowConstraintOption implements RenderOption {
+export class ShowConstraintOption implements RenderOption<boolean> {
     static readonly ID: string = "show-constraints";
     static readonly NAME: string = "Show Constraint";
     readonly id: string = ShowConstraintOption.ID;
@@ -37,7 +37,7 @@ export class ShowConstraintOption implements RenderOption {
  * This corresponds to the automatic detail level of regions and states
  * as well as limiting visible elements.
  */
-export class UseSmartZoom implements RenderOption {
+export class UseSmartZoom implements RenderOption<boolean> {
     static readonly ID: string = 'use-smart-zoom'
     static readonly NAME: string = 'Smart Zoom'
     readonly id: string = UseSmartZoom.ID
@@ -93,7 +93,7 @@ export class FullDetailScaleThreshold implements RangeOption {
 /**
  * Boolean option toggling the use of text element replacement with rectangles.
  */
-export class SimplifySmallText implements RenderOption {
+export class SimplifySmallText implements RenderOption<boolean> {
     static readonly ID: string = 'simplify-small-text'
     static readonly NAME: string = 'Simplify Small Text'
     readonly id: string = SimplifySmallText.ID
@@ -165,7 +165,7 @@ export class TitleOverlayThreshold implements RangeOption {
 /**
  * Boolean option to toggle the scaling of lines based on zoom level.
  */
-export class UseMinimumLineWidth implements RenderOption {
+export class UseMinimumLineWidth implements RenderOption<boolean> {
     static readonly ID: string = 'use-minimum-line-width'
     static readonly NAME: string = 'Minimum Line Width'
     readonly id: string = UseMinimumLineWidth.ID
@@ -199,7 +199,7 @@ export class MinimumLineWidth implements RangeOption {
  * The style shadows should be drawn in, either the paper mode shadows (nice, but slow in
  * performance) or in default KIELER-style (fast, not as nice looking).
  */
-export class PaperShadows implements RenderOption {
+export class PaperShadows implements RenderOption<boolean> {
     static readonly ID: string = 'paper-shadows'
     static readonly NAME: string = 'Paper Mode Shadows'
     static readonly DEFAULT: boolean = false
@@ -211,20 +211,20 @@ export class PaperShadows implements RenderOption {
 }
 
 
-export interface RenderOptionType {
+export interface RenderOptionType<V> {
     readonly ID: string,
     readonly NAME: string,
-    new(): RenderOption,
+    new(): RenderOption<V>,
 }
 
-export interface RenderOptionDefault extends RenderOptionType {
-    readonly DEFAULT: any,
+export interface RenderOptionDefault<V> extends RenderOptionType<V> {
+    readonly DEFAULT: V,
 }
 
 /** {@link Registry} that stores and updates different render options. */
 @injectable()
 export class RenderOptionsRegistry extends Registry {
-    private _renderOptions: Map<string, RenderOption> = new Map();
+    private _renderOptions: Map<string, RenderOption<any>> = new Map();
 
     @inject(PersistenceStorage) private storage: PersistenceStorage;
 
@@ -270,7 +270,7 @@ export class RenderOptionsRegistry extends Registry {
         this.notifyListeners();
     }
 
-    register(Option: RenderOptionType): void {
+    register<V>(Option: RenderOptionType<V>): void {
         this._renderOptions.set(Option.ID, new Option())
     }
 
@@ -293,15 +293,15 @@ export class RenderOptionsRegistry extends Registry {
         return new UpdateModelAction([], false, action)
     }
 
-    get allRenderOptions(): RenderOption[] {
+    get allRenderOptions(): RenderOption<any>[] {
         return Array.from(this._renderOptions.values());
     }
 
-    getValue(Option: RenderOptionType): any | undefined {
-        return this._renderOptions.get(Option.ID)?.currentValue;
+    getValue<V>(Option: RenderOptionType<V>): V | undefined {
+        return (this._renderOptions.get(Option.ID) as RenderOption<V> | undefined)?.currentValue;
     }
 
-    getValueOrDefault(Option: RenderOptionDefault): any {
+    getValueOrDefault<V>(Option: RenderOptionDefault<V>): V {
         return this.getValue(Option) ?? Option.DEFAULT
     }
 }

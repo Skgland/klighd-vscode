@@ -16,12 +16,12 @@
  */
 
 /** Base option that can be rendered as an ui input*/
-export interface RenderOption {
+export interface RenderOption<V> {
     id: string;
     name: string;
     type: TransformationOptionType;
-    initialValue: any;
-    currentValue: any;
+    initialValue: V;
+    currentValue: V;
 }
 
 /**
@@ -41,7 +41,7 @@ export enum TransformationOptionType {
  * This is the counterpart to the KLighD's java implementation of the SynthesisOption.
  * Also adds a sourceHash that contains the hash code of the corresponding java instance for this option.
  */
-export interface SynthesisOption extends RenderOption {
+export interface SynthesisOption extends RenderOption<any> {
     values: any[]
     category?: SynthesisOption
 }

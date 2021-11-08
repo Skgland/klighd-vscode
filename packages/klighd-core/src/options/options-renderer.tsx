@@ -252,7 +252,7 @@ export class OptionsRenderer {
     }
 
     /** Renders render options that are stored in the client. An example would be "show constraints" */
-    renderRenderOptions(renderOptions: RenderOption[]): (VNode | "")[] | "" {
+    renderRenderOptions(renderOptions: RenderOption<any>[]): (VNode | "")[] | "" {
         if (renderOptions.length === 0) return "";
 
         return renderOptions.map((option) => {
@@ -287,7 +287,7 @@ export class OptionsRenderer {
         });
     }
 
-    private handleRenderOptionChange(option: RenderOption, newValue: any) {
+    private handleRenderOptionChange<V>(option: RenderOption<V>, newValue: V) {
         this.actionDispatcher.dispatch(new SetRenderOptionAction(option.id, newValue));
     }
 }
