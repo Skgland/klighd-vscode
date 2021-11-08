@@ -30,7 +30,7 @@ export class UpdateOptionsAction implements Action {
     readonly kind = UpdateOptionsAction.KIND;
 
     constructor(
-        public readonly valuedSynthesisOptions: ValuedSynthesisOption[],
+        public readonly valuedSynthesisOptions: ValuedSynthesisOption<any>[],
         public readonly layoutOptions: LayoutOptionUIData[],
         public readonly actions: DisplayedActionData[],
         public readonly modelUri: string
@@ -63,7 +63,7 @@ export class SetSynthesisOptionsAction implements Action {
     static readonly KIND = "setSynthesisOptions";
     readonly kind = SetSynthesisOptionsAction.KIND;
 
-    constructor(readonly options: SynthesisOption[]) { }
+    constructor(readonly options: SynthesisOption<any>[]) { }
 
     /** Type predicate to narrow an action to this action. */
     static isThisAction(action: Action): action is SetSynthesisOptionsAction {

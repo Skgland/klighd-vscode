@@ -51,7 +51,7 @@ import {
 interface AllOptions {
     actions: DisplayedActionData[];
     layoutOptions: LayoutOptionUIData[];
-    synthesisOptions: SynthesisOption[];
+    synthesisOptions: SynthesisOption<any>[];
 }
 
 /** Renderer that is capable of rendering different option models to jsx. */
@@ -118,8 +118,8 @@ export class OptionsRenderer {
      * synthesisOptions that belong to no category if the category is null.
      */
     private renderSynthesisOptions(
-        synthesisOptions: SynthesisOption[],
-        category: SynthesisOption | null
+        synthesisOptions: SynthesisOption<any>[],
+        category: SynthesisOption<any> | null
     ): (VNode | "")[] | "" {
         return synthesisOptions
             .filter((option) => option.category?.id === category?.id)
@@ -193,7 +193,7 @@ export class OptionsRenderer {
             });
     }
 
-    private handleSynthesisOptionChange(option: SynthesisOption, newValue: any) {
+    private handleSynthesisOptionChange<V>(option: SynthesisOption<V>, newValue: V) {
         this.actionDispatcher.dispatch(
             new SetSynthesisOptionsAction([{ ...option, currentValue: newValue }])
         );

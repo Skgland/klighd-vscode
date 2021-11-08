@@ -58,7 +58,7 @@ export class FullDetailRelativeThreshold implements RangeOption {
     readonly id: string = FullDetailRelativeThreshold.ID
     readonly name: string = FullDetailRelativeThreshold.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 0.01,
         second: 1
@@ -79,7 +79,7 @@ export class FullDetailScaleThreshold implements RangeOption {
     readonly id: string = FullDetailScaleThreshold.ID
     readonly name: string = FullDetailScaleThreshold.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 0.01,
         second: 1
@@ -113,7 +113,7 @@ export class TextSimplificationThreshold implements RangeOption {
     readonly id: string = TextSimplificationThreshold.ID
     readonly name: string = TextSimplificationThreshold.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 1,
         second: 10
@@ -134,7 +134,7 @@ export class TitleScalingFactor implements RangeOption {
     readonly id: string = TitleScalingFactor.ID
     readonly name: string = TitleScalingFactor.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 0.5,
         second: 3
@@ -153,7 +153,7 @@ export class TitleOverlayThreshold implements RangeOption {
     readonly id: string = TitleOverlayThreshold.ID
     readonly name: string = TitleOverlayThreshold.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 1,
         second: 7
@@ -185,7 +185,7 @@ export class MinimumLineWidth implements RangeOption {
     readonly id: string = MinimumLineWidth.ID
     readonly name: string = MinimumLineWidth.NAME
     readonly type: TransformationOptionType = TransformationOptionType.RANGE
-    readonly values: any[] = []
+    readonly values: number[] = []
     readonly range = {
         first: 0.1,
         second: 3

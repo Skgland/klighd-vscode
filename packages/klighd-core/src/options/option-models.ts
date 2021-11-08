@@ -41,23 +41,23 @@ export enum TransformationOptionType {
  * This is the counterpart to the KLighD's java implementation of the SynthesisOption.
  * Also adds a sourceHash that contains the hash code of the corresponding java instance for this option.
  */
-export interface SynthesisOption extends RenderOption<any> {
-    values: any[]
-    category?: SynthesisOption
+export interface SynthesisOption<V> extends RenderOption<V> {
+    values: V[]
+    category?: SynthesisOption<any>
 }
 
 /**
  * This is just a SynthesisOption with the ability to represent its current value.
  */
-export interface ValuedSynthesisOption {
-    synthesisOption: SynthesisOption
-    currentValue: any
+export interface ValuedSynthesisOption<V> {
+    synthesisOption: SynthesisOption<V>
+    currentValue: V
 }
 
 /**
  * A SynthesisOption with the RANGE type.
  */
-export interface RangeOption extends SynthesisOption {
+export interface RangeOption extends SynthesisOption<number> {
     range: Range
     stepSize: number
 }
@@ -79,7 +79,7 @@ export interface GetOptionsResult {
     /**
      * The list of all displayed synthesis options for the diagram for the given URI.
      */
-    valuedSynthesisOptions: ValuedSynthesisOption[]
+    valuedSynthesisOptions: ValuedSynthesisOption<any>[]
 
     /**
      * The list of all displayed layout options for the diagram for the given URI.

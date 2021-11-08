@@ -46,7 +46,7 @@ export class OptionsRegistry extends Registry implements IActionHandlerInitializ
     @inject(Connection) connection: Connection;
 
     private _modelUri = "";
-    private _synthesisOptions: SynthesisOption[] = [];
+    private _synthesisOptions: SynthesisOption<any>[] = [];
     private _layoutOptions: LayoutOptionUIData[] = [];
     private _displayedActions: DisplayedActionData[] = [];
 
@@ -54,7 +54,7 @@ export class OptionsRegistry extends Registry implements IActionHandlerInitializ
         return this._modelUri;
     }
 
-    get valuedSynthesisOptions(): SynthesisOption[] {
+    get valuedSynthesisOptions(): SynthesisOption<any>[] {
         return this._synthesisOptions;
     }
 
@@ -107,7 +107,7 @@ export class OptionsRegistry extends Registry implements IActionHandlerInitializ
         // Transform valued synthesis options to synthesis options by setting their current value and remove blacklisted options
         this._synthesisOptions = action.valuedSynthesisOptions
             .filter((opt) => !optionsBlacklist.includes(opt.synthesisOption.id))
-            .map<SynthesisOption>((valuedOption) => ({
+            .map<SynthesisOption<any>>((valuedOption) => ({
                 ...valuedOption.synthesisOption,
                 currentValue:
                     valuedOption.currentValue ?? valuedOption.synthesisOption.initialValue,
