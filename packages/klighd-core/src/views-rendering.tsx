@@ -866,13 +866,6 @@ export function getRendering(datas: KGraphData[], parent: SKGraphElement, propag
 export function renderKRendering(kRendering: KRendering, parent: SKGraphElement | SKLabel, propagatedStyles: KStyles,
     context: SKGraphModelRenderer, mListener: KlighdInteractiveMouseListener): VNode | undefined { // TODO: not all of these are implemented yet
 
-    const shown = !context.renderingOptions.getValueOrDefault(GroupEdges)
-    || kRendering.isEdgeGroupRepresentative
-    || !kRendering.isEdgeGroupElement;
-
-    if (!shown)
-        return undefined
-
     // The styles that should be propagated to the children of this rendering. Will be modified in the getKStyles call.
     const stylesToPropagate = new KStyles
     // Extract the styles of the rendering into a more presentable object.
@@ -880,6 +873,16 @@ export function renderKRendering(kRendering: KRendering, parent: SKGraphElement 
 
     // Determine the bounds of the rendering first and where it has to be placed.
     const isEdge = [K_POLYLINE,  K_POLYGON, K_ROUNDED_BENDS_POLYLINE, K_SPLINE].includes(kRendering.type)
+
+    if (isEdge) {
+        const shown = !context.renderingOptions.getValueOrDefault(GroupEdges)
+        || kRendering.isEdgeGroupRepresentative
+
+        if (!shown){
+            return undefined
+        }
+    }
+
     const boundsAndTransformation = findBoundsAndTransformationData(kRendering, styles, parent, context, isEdge)
     if (boundsAndTransformation === undefined) {
         // If no bounds are found, the rendering can not be drawn.

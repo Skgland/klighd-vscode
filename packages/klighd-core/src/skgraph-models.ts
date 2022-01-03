@@ -121,7 +121,6 @@ export interface KRendering extends KGraphData, KStyleHolder {
     isNodeTitle?: boolean
 
     isEdgeGroupRepresentative?: boolean
-    isEdgeGroupElement?: boolean
 
     /**
      * The unique identifier of this rendering.
