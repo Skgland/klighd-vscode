@@ -16,7 +16,8 @@
  */
 
 import { KEdge, KGraphData, KGraphElement, KNode } from '@kieler/klighd-interactive/lib/constraint-classes';
-import { Bounds, boundsFeature, moveFeature, Point, popupFeature, RectangularPort, RGBColor, selectFeature, SLabel, SModelElement } from 'sprotty';
+import { boundsFeature, moveFeature, popupFeature, RectangularPort, RGBColor, selectFeature, SLabel, SModelElement } from 'sprotty';
+import { Bounds , Point } from 'sprotty-protocol/lib/utils/geometry';
 
 /**
  * This is the superclass of all elements of a graph such as nodes, edges, ports,
@@ -121,6 +122,7 @@ export interface KRendering extends KGraphData, KStyleHolder {
     isNodeTitle?: boolean
 
     isEdgeGroupRepresentative?: boolean
+    isEdgeGroupElement?: boolean
 
     /**
      * The unique identifier of this rendering.
