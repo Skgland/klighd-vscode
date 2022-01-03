@@ -116,9 +116,13 @@ export interface KRendering extends KGraphData, KStyleHolder {
     tooltip?: string
 
     /**
-     * Whether the server pre-determined this KRendering to be the title of a node or not. 
+     * Whether the server pre-determined this KRendering to be the title of a node or not.
      */
     isNodeTitle?: boolean
+
+    isEdgeGroupRepresentative?: boolean
+    isEdgeGroupElement?: boolean
+
     /**
      * The unique identifier of this rendering.
      */

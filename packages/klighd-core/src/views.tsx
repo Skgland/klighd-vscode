@@ -24,7 +24,7 @@ import { findParentByFeature, isViewport, IView, RenderingContext, SGraph, svg }
 import { DepthMap, DetailLevel } from './depth-map';
 import { DISymbol } from './di.symbols';
 import { overpass_mono_regular_style, overpass_regular_style } from './fonts/overpass';
-import { RenderOptionsRegistry, ShowConstraintOption, UseSmartZoom } from './options/render-options-registry';
+import {  RenderOptionsRegistry, ShowConstraintOption, UseSmartZoom } from './options/render-options-registry';
 import { SKGraphModelRenderer } from './skgraph-model-renderer';
 import { SKEdge, SKLabel, SKNode, SKPort } from './skgraph-models';
 import { getJunctionPointRenderings, getRendering } from './views-rendering';

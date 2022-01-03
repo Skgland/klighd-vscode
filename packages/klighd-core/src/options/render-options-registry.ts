@@ -175,7 +175,7 @@ export class TitleScalingFactor implements RangeOption {
     currentValue = 1
 }
 /**
- * The threshold at which the title will no longer overlay  
+ * The threshold at which the title will no longer overlay
  */
 export class TitleOverlayThreshold implements RangeOption {
     static readonly ID: string = 'title-overlay-threshold'
@@ -255,6 +255,20 @@ export class AnimateGoToBookmark implements RenderOption {
     currentValue = true;
 }
 
+/**
+ * Whether going to a Bookmark should be animated
+ */
+export class GroupEdges implements RenderOption {
+    static readonly ID: string = 'group-edges';
+    static readonly NAME: string = 'Group Edges';
+    static readonly DEFAULT: boolean = false
+    readonly id: string = GroupEdges.ID;
+    readonly name: string = GroupEdges.NAME;
+    readonly type: TransformationOptionType = TransformationOptionType.CHECK;
+    readonly initialValue: boolean = GroupEdges.DEFAULT;
+    currentValue = true;
+}
+
 
 export interface RenderOptionType {
     readonly ID: string,
@@ -295,6 +309,8 @@ export class RenderOptionsRegistry extends Registry {
 
         this.register(PaperShadows)
         this.register(AnimateGoToBookmark);
+        
+        this.register(GroupEdges);
     }
 
     @postConstruct()
