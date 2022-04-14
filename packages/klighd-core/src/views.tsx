@@ -120,6 +120,7 @@ export class KNodeView implements IView {
 
         let transformation: string;
 
+        let node_scale = 1;
 
         // we push a new effective zoom in all cases so we can pop later without checking whether we pushed
         if (node.parent && performNodeScaling) {
@@ -131,6 +132,7 @@ export class KNodeView implements IView {
                 transformation = ""
                 ctx.pushEffectiveZoom(ctx.effectiveZoom)
             } else {
+                node_scale = scalingFactor
                 // Apply the new bounds and scaling as the element's transformation.
                 transformation = `translate(${newBounds.x - node.bounds.x },${newBounds.y - node.bounds.y})scale(${scalingFactor})`
                 ctx.pushEffectiveZoom(ctx.effectiveZoom * scalingFactor)
@@ -218,7 +220,7 @@ export class KNodeView implements IView {
             const titles = ctx.exitTitleScope()
             const childRenderings = ctx.renderChildren(node)
             ctx.popEffectiveZoom()
-            return <g><g transform={transformation}>
+            return <g><g transform={transformation} attrs={{"data-node-scale":node_scale}}>
                 {titles}
                 {childRenderings}
             </g></g>
@@ -238,7 +240,7 @@ export class KNodeView implements IView {
         result.push(...ctx.exitTitleScope())
         ctx.positions.pop()
         ctx.popEffectiveZoom()
-        return <g><g transform={transformation}>{...result}</g></g>
+        return <g><g transform={transformation} attrs={{"data-node-scale":node_scale}}>{...result}</g></g>
     }
 }
 
